@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ShortUrlsController, type: :controller do
-
+=begin
   let(:parsed_response) { JSON.parse(response.body) }
 
   describe "index" do
@@ -54,5 +54,5 @@ RSpec.describe ShortUrlsController, type: :controller do
     end
 
   end
-
+=end
 end

@@ -7,7 +7,7 @@ RSpec.describe UpdateTitleJob, type: :job do
 
   it "updates the title" do
     expect(short_url.title).to be_nil
-    UpdateTitleJob.perform_later(short_url.id)
+    UpdateTitleJob.perform_later(short_url)
     perform_enqueued_jobs(only: UpdateTitleJob)
     short_url.reload
     expect(short_url.title).to eq("Frequently Asked Questions | BeenVerified")

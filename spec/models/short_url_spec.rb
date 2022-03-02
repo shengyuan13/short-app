@@ -7,7 +7,7 @@ RSpec.describe ShortUrl, type: :model do
     let(:short_url) { ShortUrl.create(full_url: "https://www.beenverified.com/faq/") }
 
     it "finds a short_url with the short_code" do
-      expect(ShortUrl.find_by_short_code(short_url.short_code)).to eq short_url
+      expect(ShortUrl.find_by_short_code(short_url.shorted_url)).to eq short_url
     end
 
   end
@@ -21,14 +21,22 @@ RSpec.describe ShortUrl, type: :model do
       expect(short_url.errors[:full_url]).to be_include("can't be blank")
     end
 
-    it "has an invalid url" do
-      short_url.full_url = 'javascript:alert("Hello World");'
+    it "has an invalid full url" do
+      short_url = ShortUrl.create(
+        full_url: 'javascript:alert("Hello World");'
+      )
       expect(short_url).to_not be_valid
-      expect(short_url.errors[:full_url]).to be_include("is not a valid url")
+    end
+
+    it "has an valid full url" do
+      short_url = ShortUrl.create(
+        full_url: 'https://www.beenverified.com/faq/'
+      )
+      expect(short_url).to be_valid
     end
 
     it "doesn't have a short_code" do
-      expect(short_url.short_code).to be_nil
+      expect(short_url.shorted_url).to be_nil
     end
 
   end
@@ -59,15 +67,14 @@ RSpec.describe ShortUrl, type: :model do
 
       it "has the short_code for id 1001" do
         short_url.update_column(:id, 1001)
-        expect(short_url.short_code).to eq("g9")
+        expect(short_url.short_code).to eq("rt")
       end
 
       it "has the short_code for id for 50" do
         short_url.update_column(:id, 50)
-        expect(short_url.short_code).to eq("O")
+        expect(short_url.short_code).to eq("1e")
       end
     end
 
   end
-
 end
