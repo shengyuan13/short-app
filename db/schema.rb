@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2019_09_23_133432) do
   create_table "short_urls", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "full_url"
     t.string "title"
+    t.string "shorted_url"
     t.integer "click_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
