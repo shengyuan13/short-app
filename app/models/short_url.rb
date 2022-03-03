@@ -6,6 +6,7 @@ class ShortUrl < ApplicationRecord
   validates_presence_of :full_url
   validates :full_url, format: URI::regexp(%w[http https])
 
+  # Generate shorted_url
   def short_code
     # Converting id to base 36 and update the tests results
     shorted_url = self.id.to_s(36)
@@ -13,6 +14,7 @@ class ShortUrl < ApplicationRecord
     shorted_url
   end
 
+  # Update DB with given Url page title.
   def update_title!
     UpdateTitleJob.perform_now(self)
   end
@@ -25,6 +27,7 @@ class ShortUrl < ApplicationRecord
   private
 
   def validate_full_url
+    # Not used since the full_url will be validated with the regexp above.
   end
 
 end
