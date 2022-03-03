@@ -13,6 +13,10 @@ module ShortTest
 
     config.active_job.queue_adapter = :resque
 
+    # Added this line to solve error I was getting "Cannot render console to 172.25.0.1"
+    config.web_console.whitelisted_ips = '172.25.0.1/16'
+
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
