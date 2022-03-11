@@ -8,8 +8,15 @@ class ShortUrl < ApplicationRecord
 
   # Generate shorted_url
   def short_code
-    # Converting id to base 36 and update the tests results
-    shorted_url = self.id.to_s(36)
+    # Converting id to base 62 as suggested by Randy and update the tests results
+    short = ''
+    id = self.id
+    while id > 0
+      short << CHARACTERS[id % 62]
+      id /= 62
+    end
+
+    shorted_url = short.reverse
     update_column(:shorted_url, shorted_url)
     shorted_url
   end

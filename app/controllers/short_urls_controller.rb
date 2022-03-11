@@ -9,10 +9,8 @@ class ShortUrlsController < ApplicationController
 
     respond_to do |format|
       if @short_url
-        #render json: @short_url
         format.json { render json: @short_url }
       else
-        #render json: @short_url.errors
         format.json { render json: @short_url.errors }
       end
     end
