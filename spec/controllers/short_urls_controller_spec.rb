@@ -6,7 +6,7 @@ RSpec.describe ShortUrlsController, type: :controller do
 
   describe "index" do
 
-    let!(:short_url) { ShortUrl.create(full_url: "https://www.beenverified.com/faq/") }
+    let!(:short_url) { ShortUrl.create(full_url: "https://www.test.rspec") }
 
     it "is a successful response" do
       get :index, format: :json
@@ -15,8 +15,11 @@ RSpec.describe ShortUrlsController, type: :controller do
 
     it "has a list of the top 100 urls" do
       get :index, format: :json
-
-      expect(response.body).to be_include(short_url.full_url)
+      #expect(parsed_response['urls']).to be_include(short_url.public_attributes)
+      # Modified this one, validating that each element of the response has all our ShortUrl model attributes (DB columns)
+      parsed_response.each do |url| 
+        expect(url).to include(*short_url.attribute_names)
+      end
     end
 
   end
@@ -37,7 +40,7 @@ RSpec.describe ShortUrlsController, type: :controller do
 
   describe "show" do
 
-    let!(:short_url) { ShortUrl.create(full_url: "https://www.beenverified.com/faq/") }
+    let!(:short_url) { ShortUrl.create(full_url: "https://www.test.rspec") }
 
     it "redirects to the full_url" do
       get :show, params: { id: short_url.short_code }, format: :json
