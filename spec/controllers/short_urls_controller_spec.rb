@@ -16,8 +16,10 @@ RSpec.describe ShortUrlsController, type: :controller do
     it "has a list of the top 100 urls" do
       get :index, format: :json
       #expect(parsed_response['urls']).to be_include(short_url.public_attributes)
-      # Modified this one, validating response has all the our ShortUrl model attributes (DB columns)
-      expect(parsed_response[0].keys).to contain_exactly(*short_url.attribute_names)
+      # Modified this one, validating that each element of the response has all our ShortUrl model attributes (DB columns)
+      parsed_response.each do |url| 
+        expect(url).to include(*short_url.attribute_names)
+      end
     end
 
   end
