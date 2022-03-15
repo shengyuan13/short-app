@@ -27,6 +27,7 @@ gem 'jbuilder', '~> 2.7'
 
 gem "json"
 gem "resque"
+gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 
 # For web scrapping and get the title
 gem 'mechanize'
