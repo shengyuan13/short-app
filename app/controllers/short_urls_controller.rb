@@ -26,7 +26,7 @@ class ShortUrlsController < ApplicationController
         @short_url.update_title!
         format.json { render json: @short_url }
       else
-        format.json { render json: { "errors" => "Full url is not a valid url" } }
+        format.json { render json: { "errors" => "Full url is not a valid url" }, status: :unprocessable_entity }
       end
     end
   end
